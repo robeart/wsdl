@@ -1,0 +1,716 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://attachmentgallery.m1000.service.ellipse.mincom.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap11="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns2="http://service.ellipse.mincom.com" xmlns:ns1="http://connectivity.service.ews.mincom.com" xmlns:soapenc12="http://www.w3.org/2003/05/soap-encoding" xmlns:ns4="http://instances.base.types.ellipse.mincom.com" xmlns:ns3="http://instances.m1000.types.ellipse.mincom.com" xmlns:ns6="http://errors.ellipse.mincom.com" xmlns:soapenc11="http://schemas.xmlsoap.org/soap/encoding/" xmlns:ns5="http://attribute.ellipse.mincom.com" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:tns="http://attachmentgallery.m1000.service.ellipse.mincom.com" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702">
+  <wsdl:types>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://connectivity.service.ews.mincom.com">
+    <xsd:complexType name="OperationContext">
+        <xsd:sequence>
+            <xsd:element minOccurs="0" name="applicationClientId" type="xsd:string"/>
+            <xsd:element minOccurs="0" name="district" type="xsd:string"/>
+            <xsd:element minOccurs="0" name="eventDisable" type="xsd:boolean"/>
+            <xsd:element minOccurs="0" name="maxInstances" type="xsd:int"/>
+            <xsd:element minOccurs="0" name="position" type="xsd:string"/>
+            <xsd:element minOccurs="0" name="returnWarnings" type="xsd:boolean"/>
+            <xsd:element minOccurs="0" name="runAs" type="ns1:RunAs"/>
+            <xsd:element minOccurs="0" name="tenantId" type="xsd:string"/>
+            <xsd:element minOccurs="0" name="trace" type="xsd:boolean"/>
+            <xsd:element minOccurs="0" name="transaction" type="xsd:string"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="RunAs">
+        <xsd:sequence>
+            <xsd:element minOccurs="0" name="district" type="xsd:string"/>
+            <xsd:element minOccurs="0" name="position" type="xsd:string"/>
+            <xsd:element minOccurs="0" name="user" type="xsd:string"/>
+        </xsd:sequence>
+    </xsd:complexType>
+</xsd:schema>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://instances.m1000.types.ellipse.mincom.com">
+    <xsd:import namespace="http://instances.base.types.ellipse.mincom.com"/>
+    <xsd:import namespace="http://service.ellipse.mincom.com"/>
+    <xsd:simpleType name="attachmentType">
+        <xsd:restriction base="xsd:string">
+            <xsd:minLength value="0"/>
+            <xsd:maxLength value="1"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="retrieveImageData">
+        <xsd:restriction base="xsd:boolean"/>
+    </xsd:simpleType>
+    <xsd:simpleType name="serviceName">
+        <xsd:restriction base="xsd:string">
+            <xsd:minLength value="0"/>
+            <xsd:maxLength value="200"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="primaryKey">
+        <xsd:restriction base="xsd:string">
+            <xsd:minLength value="0"/>
+            <xsd:maxLength value="50"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:complexType name="AttachmentGallerySearchParam">
+        <xsd:complexContent>
+            <xsd:extension base="ns2:AbstractSearchParam">
+                <xsd:sequence>
+                    <xsd:element minOccurs="0" name="attachmentType" type="ns3:attachmentType"/>
+                    <xsd:element minOccurs="0" name="primaryKey" type="ns3:primaryKey"/>
+                    <xsd:element minOccurs="0" name="retrieveImageData" type="ns3:retrieveImageData"/>
+                    <xsd:element minOccurs="0" name="serviceName" type="ns3:serviceName"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:simpleType name="attachmentSequence">
+        <xsd:restriction base="xsd:decimal">
+            <xsd:maxInclusive value="9999.0"/>
+            <xsd:minInclusive value="0"/>
+            <xsd:fractionDigits value="0"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="isDefault">
+        <xsd:restriction base="xsd:boolean"/>
+    </xsd:simpleType>
+    <xsd:complexType name="AttachmentGalleryDTO">
+        <xsd:complexContent>
+            <xsd:extension base="ns2:ServiceDTO">
+                <xsd:sequence>
+                    <xsd:element minOccurs="0" name="attachmentId" type="ns4:File"/>
+                    <xsd:element minOccurs="0" name="attachmentSequence" type="ns3:attachmentSequence"/>
+                    <xsd:element minOccurs="0" name="attachmentType" type="ns3:attachmentType"/>
+                    <xsd:element minOccurs="0" name="isDefault" type="ns3:isDefault"/>
+                    <xsd:element minOccurs="0" name="mediaId" type="ns4:Image"/>
+                    <xsd:element minOccurs="0" name="primaryKey" type="ns3:primaryKey"/>
+                    <xsd:element minOccurs="0" name="retrieveImageData" type="ns3:retrieveImageData"/>
+                    <xsd:element minOccurs="0" name="serviceName" type="ns3:serviceName"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:complexType name="ArrayOfAttachmentGalleryServiceResult">
+        <xsd:sequence>
+            <xsd:element maxOccurs="unbounded" minOccurs="0" name="AttachmentGalleryServiceResult" nillable="true" type="ns3:AttachmentGalleryServiceResult"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="AttachmentGalleryServiceResult">
+        <xsd:complexContent>
+            <xsd:extension base="ns2:ServiceResult">
+                <xsd:sequence>
+                    <xsd:element minOccurs="0" name="attachmentsDTO" type="ns3:AttachmentGalleryDTO"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:complexType name="ArrayOfAttachmentGalleryDTO">
+        <xsd:sequence>
+            <xsd:element maxOccurs="unbounded" minOccurs="0" name="AttachmentGalleryDTO" nillable="true" type="ns3:AttachmentGalleryDTO"/>
+        </xsd:sequence>
+    </xsd:complexType>
+</xsd:schema>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://service.ellipse.mincom.com">
+    <xsd:import namespace="http://errors.ellipse.mincom.com"/>
+    <xsd:import namespace="http://instances.base.types.ellipse.mincom.com"/>
+    <xsd:import namespace="http://attribute.ellipse.mincom.com"/>
+    <xsd:complexType abstract="true" name="AbstractSearchParam">
+        <xsd:complexContent>
+            <xsd:extension base="ns2:ServiceDTO">
+                <xsd:sequence>
+                    <xsd:element minOccurs="0" name="serviceRequiredAttributes" type="ns2:ServiceRequiredAttributes"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:complexType abstract="true" name="ServiceDTO">
+        <xsd:complexContent>
+            <xsd:extension base="ns4:Base">
+                <xsd:sequence>
+                    <xsd:element minOccurs="0" name="customAttributes" type="ns5:ArrayOfAttribute"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:complexType name="ServiceRequiredAttributes"/>
+    <xsd:complexType name="ServiceResult">
+        <xsd:complexContent>
+            <xsd:extension base="ns2:BaseServiceResult"/>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:complexType abstract="true" name="BaseServiceResult">
+        <xsd:sequence>
+            <xsd:element minOccurs="0" name="errors" type="ns6:ArrayOfError"/>
+            <xsd:element minOccurs="0" name="informationalMessages" type="ns6:ArrayOfMessage"/>
+            <xsd:element minOccurs="0" name="warnings" type="ns6:ArrayOfWarning"/>
+        </xsd:sequence>
+    </xsd:complexType>
+</xsd:schema>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://instances.base.types.ellipse.mincom.com">
+    <xsd:complexType abstract="true" name="Base"/>
+    <xsd:complexType name="File">
+        <xsd:complexContent>
+            <xsd:extension base="ns4:Complex">
+                <xsd:sequence>
+                    <xsd:element minOccurs="0" name="data" type="ns4:ByteArray"/>
+                    <xsd:element minOccurs="0" name="fileExtension" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="fileName" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="fileType" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="group" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="id" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="sizeInBytes" type="xsd:double"/>
+                    <xsd:element minOccurs="0" name="value" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:complexType name="Complex">
+        <xsd:complexContent>
+            <xsd:extension base="ns4:Base"/>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:complexType name="ByteArray">
+        <xsd:complexContent>
+            <xsd:extension base="ns4:Base">
+                <xsd:sequence>
+                    <xsd:element minOccurs="0" name="asEllipseValue" type="xsd:base64Binary"/>
+                    <xsd:element minOccurs="0" name="maxLength" type="xsd:int"/>
+                    <xsd:element minOccurs="0" name="value" type="xsd:base64Binary"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:complexType name="Image">
+        <xsd:complexContent>
+            <xsd:extension base="ns4:Media">
+                <xsd:sequence>
+                    <xsd:element minOccurs="0" name="classId" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="fileType" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="height" type="xsd:double"/>
+                    <xsd:element minOccurs="0" name="image" type="xsd:base64Binary"/>
+                    <xsd:element minOccurs="0" name="sizeInBytes" type="xsd:double"/>
+                    <xsd:element minOccurs="0" name="uploadServletUrl" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="url" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="width" type="xsd:double"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:complexType abstract="true" name="Media">
+        <xsd:complexContent>
+            <xsd:extension base="ns4:Complex">
+                <xsd:sequence>
+                    <xsd:element minOccurs="0" name="description" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="id" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="name" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+</xsd:schema>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://attribute.ellipse.mincom.com">
+    <xsd:import namespace="http://attachmentgallery.m1000.service.ellipse.mincom.com"/>
+    <xsd:complexType name="ArrayOfAttribute">
+        <xsd:sequence>
+            <xsd:element maxOccurs="unbounded" minOccurs="0" name="Attribute" nillable="true" type="ns5:Attribute"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="Attribute">
+        <xsd:sequence>
+            <xsd:element minOccurs="0" name="dataType" type="xsd:string"/>
+            <xsd:element minOccurs="0" name="name" type="xsd:string"/>
+            <xsd:element minOccurs="0" name="namespace" type="xsd:string"/>
+            <xsd:element minOccurs="0" name="properties" type="tns:anyType2anyTypeMap"/>
+            <xsd:element minOccurs="0" name="value" type="xsd:string"/>
+        </xsd:sequence>
+    </xsd:complexType>
+</xsd:schema>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://attachmentgallery.m1000.service.ellipse.mincom.com">
+    <xsd:import namespace="http://connectivity.service.ews.mincom.com"/>
+    <xsd:import namespace="http://instances.m1000.types.ellipse.mincom.com"/>
+    <xsd:complexType name="anyType2anyTypeMap">
+        <xsd:sequence>
+            <xsd:element maxOccurs="unbounded" minOccurs="0" name="entry">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element maxOccurs="1" minOccurs="0" name="key" type="xsd:anyType"/>
+                        <xsd:element maxOccurs="1" minOccurs="0" name="value" type="xsd:anyType"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="search">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element maxOccurs="1" minOccurs="1" name="context" nillable="true" type="ns1:OperationContext"/>
+                <xsd:element maxOccurs="1" minOccurs="1" name="searchParams" nillable="true" type="ns3:AttachmentGallerySearchParam"/>
+                <xsd:element maxOccurs="1" minOccurs="1" name="restart" nillable="true" type="ns3:AttachmentGalleryDTO"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="searchResponse">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element maxOccurs="1" minOccurs="1" name="out" nillable="true" type="ns3:ArrayOfAttachmentGalleryServiceResult"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="multipleUpdate">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element maxOccurs="1" minOccurs="1" name="context" nillable="true" type="ns1:OperationContext"/>
+                <xsd:element maxOccurs="1" minOccurs="1" name="inputDtos" nillable="true" type="ns3:ArrayOfAttachmentGalleryDTO"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="multipleUpdateResponse">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element maxOccurs="1" minOccurs="1" name="out" nillable="true" type="ns3:ArrayOfAttachmentGalleryServiceResult"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="deleteAll">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element maxOccurs="1" minOccurs="1" name="context" nillable="true" type="ns1:OperationContext"/>
+                <xsd:element maxOccurs="1" minOccurs="1" name="serviceDTO" nillable="true" type="ns3:AttachmentGalleryDTO"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="deleteAllResponse">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element maxOccurs="1" minOccurs="1" name="out" nillable="true" type="ns3:AttachmentGalleryServiceResult"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="multipleDelete">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element maxOccurs="1" minOccurs="1" name="context" nillable="true" type="ns1:OperationContext"/>
+                <xsd:element maxOccurs="1" minOccurs="1" name="inputDtos" nillable="true" type="ns3:ArrayOfAttachmentGalleryDTO"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="multipleDeleteResponse">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element maxOccurs="1" minOccurs="1" name="out" nillable="true" type="ns3:ArrayOfAttachmentGalleryServiceResult"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="create">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element maxOccurs="1" minOccurs="1" name="context" nillable="true" type="ns1:OperationContext"/>
+                <xsd:element maxOccurs="1" minOccurs="1" name="serviceDTO" nillable="true" type="ns3:AttachmentGalleryDTO"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="createResponse">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element maxOccurs="1" minOccurs="1" name="out" nillable="true" type="ns3:AttachmentGalleryServiceResult"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="update">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element maxOccurs="1" minOccurs="1" name="context" nillable="true" type="ns1:OperationContext"/>
+                <xsd:element maxOccurs="1" minOccurs="1" name="serviceDTO" nillable="true" type="ns3:AttachmentGalleryDTO"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="updateResponse">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element maxOccurs="1" minOccurs="1" name="out" nillable="true" type="ns3:AttachmentGalleryServiceResult"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="delete">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element maxOccurs="1" minOccurs="1" name="context" nillable="true" type="ns1:OperationContext"/>
+                <xsd:element maxOccurs="1" minOccurs="1" name="serviceDTO" nillable="true" type="ns3:AttachmentGalleryDTO"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="deleteResponse">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element maxOccurs="1" minOccurs="1" name="out" nillable="true" type="ns3:AttachmentGalleryServiceResult"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="defaultImage">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element maxOccurs="1" minOccurs="1" name="context" nillable="true" type="ns1:OperationContext"/>
+                <xsd:element maxOccurs="1" minOccurs="1" name="searchParams" nillable="true" type="ns3:AttachmentGallerySearchParam"/>
+                <xsd:element maxOccurs="1" minOccurs="1" name="restart" nillable="true" type="ns3:AttachmentGalleryDTO"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="defaultImageResponse">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element maxOccurs="1" minOccurs="1" name="out" nillable="true" type="ns3:ArrayOfAttachmentGalleryServiceResult"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="multipleCreate">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element maxOccurs="1" minOccurs="1" name="context" nillable="true" type="ns1:OperationContext"/>
+                <xsd:element maxOccurs="1" minOccurs="1" name="inputDtos" nillable="true" type="ns3:ArrayOfAttachmentGalleryDTO"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="multipleCreateResponse">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element maxOccurs="1" minOccurs="1" name="out" nillable="true" type="ns3:ArrayOfAttachmentGalleryServiceResult"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="multipleDeleteAll">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element maxOccurs="1" minOccurs="1" name="context" nillable="true" type="ns1:OperationContext"/>
+                <xsd:element maxOccurs="1" minOccurs="1" name="inputDtos" nillable="true" type="ns3:ArrayOfAttachmentGalleryDTO"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="multipleDeleteAllResponse">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element maxOccurs="1" minOccurs="1" name="out" nillable="true" type="ns3:ArrayOfAttachmentGalleryServiceResult"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+</xsd:schema>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://errors.ellipse.mincom.com">
+    <xsd:complexType name="ArrayOfError">
+        <xsd:sequence>
+            <xsd:element maxOccurs="unbounded" minOccurs="0" name="Error" nillable="true" type="ns6:Error"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="Error">
+        <xsd:complexContent>
+            <xsd:extension base="ns6:Message"/>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:complexType name="Message">
+        <xsd:sequence>
+            <xsd:element minOccurs="0" name="fieldId" type="xsd:string"/>
+            <xsd:element minOccurs="0" name="fieldIndex" type="xsd:int"/>
+            <xsd:element minOccurs="0" name="localisable" type="xsd:boolean"/>
+            <xsd:element minOccurs="0" name="messageId" type="xsd:string"/>
+            <xsd:element minOccurs="0" name="messageInstance" type="xsd:string"/>
+            <xsd:element minOccurs="0" name="messageText" type="xsd:string"/>
+            <xsd:element minOccurs="0" name="parentInstance" type="xsd:string"/>
+            <xsd:element minOccurs="0" name="user" type="xsd:string"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="ArrayOfMessage">
+        <xsd:sequence>
+            <xsd:element maxOccurs="unbounded" minOccurs="0" name="Message" nillable="true" type="ns6:Message"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="ArrayOfWarning">
+        <xsd:sequence>
+            <xsd:element maxOccurs="unbounded" minOccurs="0" name="Warning" nillable="true" type="ns6:Warning"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="Warning">
+        <xsd:complexContent>
+            <xsd:extension base="ns6:Message"/>
+        </xsd:complexContent>
+    </xsd:complexType>
+</xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="createRequest">
+    <wsdl:part name="parameters" element="tns:create">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="updateRequest">
+    <wsdl:part name="parameters" element="tns:update">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="multipleCreateResponse">
+    <wsdl:part name="parameters" element="tns:multipleCreateResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="searchRequest">
+    <wsdl:part name="parameters" element="tns:search">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="multipleDeleteRequest">
+    <wsdl:part name="parameters" element="tns:multipleDelete">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="multipleUpdateResponse">
+    <wsdl:part name="parameters" element="tns:multipleUpdateResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="deleteAllRequest">
+    <wsdl:part name="parameters" element="tns:deleteAll">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="multipleDeleteResponse">
+    <wsdl:part name="parameters" element="tns:multipleDeleteResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="multipleDeleteAllRequest">
+    <wsdl:part name="parameters" element="tns:multipleDeleteAll">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="createResponse">
+    <wsdl:part name="parameters" element="tns:createResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="searchResponse">
+    <wsdl:part name="parameters" element="tns:searchResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="defaultImageResponse">
+    <wsdl:part name="parameters" element="tns:defaultImageResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="deleteResponse">
+    <wsdl:part name="parameters" element="tns:deleteResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="multipleCreateRequest">
+    <wsdl:part name="parameters" element="tns:multipleCreate">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="multipleDeleteAllResponse">
+    <wsdl:part name="parameters" element="tns:multipleDeleteAllResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="multipleUpdateRequest">
+    <wsdl:part name="parameters" element="tns:multipleUpdate">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="updateResponse">
+    <wsdl:part name="parameters" element="tns:updateResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="deleteRequest">
+    <wsdl:part name="parameters" element="tns:delete">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="defaultImageRequest">
+    <wsdl:part name="parameters" element="tns:defaultImage">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="deleteAllResponse">
+    <wsdl:part name="parameters" element="tns:deleteAllResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="AttachmentGallery">
+    <wsdl:operation name="search">
+      <wsdl:input name="searchRequest" message="tns:searchRequest">
+    </wsdl:input>
+      <wsdl:output name="searchResponse" message="tns:searchResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="multipleUpdate">
+      <wsdl:input name="multipleUpdateRequest" message="tns:multipleUpdateRequest">
+    </wsdl:input>
+      <wsdl:output name="multipleUpdateResponse" message="tns:multipleUpdateResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="deleteAll">
+      <wsdl:input name="deleteAllRequest" message="tns:deleteAllRequest">
+    </wsdl:input>
+      <wsdl:output name="deleteAllResponse" message="tns:deleteAllResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="multipleDelete">
+      <wsdl:input name="multipleDeleteRequest" message="tns:multipleDeleteRequest">
+    </wsdl:input>
+      <wsdl:output name="multipleDeleteResponse" message="tns:multipleDeleteResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="create">
+      <wsdl:input name="createRequest" message="tns:createRequest">
+    </wsdl:input>
+      <wsdl:output name="createResponse" message="tns:createResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="update">
+      <wsdl:input name="updateRequest" message="tns:updateRequest">
+    </wsdl:input>
+      <wsdl:output name="updateResponse" message="tns:updateResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="delete">
+      <wsdl:input name="deleteRequest" message="tns:deleteRequest">
+    </wsdl:input>
+      <wsdl:output name="deleteResponse" message="tns:deleteResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="defaultImage">
+      <wsdl:input name="defaultImageRequest" message="tns:defaultImageRequest">
+    </wsdl:input>
+      <wsdl:output name="defaultImageResponse" message="tns:defaultImageResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="multipleCreate">
+      <wsdl:input name="multipleCreateRequest" message="tns:multipleCreateRequest">
+    </wsdl:input>
+      <wsdl:output name="multipleCreateResponse" message="tns:multipleCreateResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="multipleDeleteAll">
+      <wsdl:input name="multipleDeleteAllRequest" message="tns:multipleDeleteAllRequest">
+    </wsdl:input>
+      <wsdl:output name="multipleDeleteAllResponse" message="tns:multipleDeleteAllResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="AttachmentGalleryServiceHttpBinding" type="tns:AttachmentGallery">
+    <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsp:PolicyReference URI="#AttachmentGalleryServiceHttpBindingPolicy"/>
+    <wsdl:operation name="search">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="searchRequest">
+        <wsdlsoap:body use="literal"/>
+        <wsp:PolicyReference URI="#AttachmentGalleryServiceHttpBinding_Policy"/>
+      </wsdl:input>
+      <wsdl:output name="searchResponse">
+        <wsdlsoap:body use="literal"/>
+        <wsp:PolicyReference URI="#AttachmentGalleryServiceHttpBinding_Policy"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="multipleUpdate">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="multipleUpdateRequest">
+        <wsdlsoap:body use="literal"/>
+        <wsp:PolicyReference URI="#AttachmentGalleryServiceHttpBinding_Policy"/>
+      </wsdl:input>
+      <wsdl:output name="multipleUpdateResponse">
+        <wsdlsoap:body use="literal"/>
+        <wsp:PolicyReference URI="#AttachmentGalleryServiceHttpBinding_Policy"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="deleteAll">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="deleteAllRequest">
+        <wsdlsoap:body use="literal"/>
+        <wsp:PolicyReference URI="#AttachmentGalleryServiceHttpBinding_Policy"/>
+      </wsdl:input>
+      <wsdl:output name="deleteAllResponse">
+        <wsdlsoap:body use="literal"/>
+        <wsp:PolicyReference URI="#AttachmentGalleryServiceHttpBinding_Policy"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="multipleDelete">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="multipleDeleteRequest">
+        <wsdlsoap:body use="literal"/>
+        <wsp:PolicyReference URI="#AttachmentGalleryServiceHttpBinding_Policy"/>
+      </wsdl:input>
+      <wsdl:output name="multipleDeleteResponse">
+        <wsdlsoap:body use="literal"/>
+        <wsp:PolicyReference URI="#AttachmentGalleryServiceHttpBinding_Policy"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="create">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="createRequest">
+        <wsdlsoap:body use="literal"/>
+        <wsp:PolicyReference URI="#AttachmentGalleryServiceHttpBinding_Policy"/>
+      </wsdl:input>
+      <wsdl:output name="createResponse">
+        <wsdlsoap:body use="literal"/>
+        <wsp:PolicyReference URI="#AttachmentGalleryServiceHttpBinding_Policy"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="update">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="updateRequest">
+        <wsdlsoap:body use="literal"/>
+        <wsp:PolicyReference URI="#AttachmentGalleryServiceHttpBinding_Policy"/>
+      </wsdl:input>
+      <wsdl:output name="updateResponse">
+        <wsdlsoap:body use="literal"/>
+        <wsp:PolicyReference URI="#AttachmentGalleryServiceHttpBinding_Policy"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="delete">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="deleteRequest">
+        <wsdlsoap:body use="literal"/>
+        <wsp:PolicyReference URI="#AttachmentGalleryServiceHttpBinding_Policy"/>
+      </wsdl:input>
+      <wsdl:output name="deleteResponse">
+        <wsdlsoap:body use="literal"/>
+        <wsp:PolicyReference URI="#AttachmentGalleryServiceHttpBinding_Policy"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="defaultImage">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="defaultImageRequest">
+        <wsdlsoap:body use="literal"/>
+        <wsp:PolicyReference URI="#AttachmentGalleryServiceHttpBinding_Policy"/>
+      </wsdl:input>
+      <wsdl:output name="defaultImageResponse">
+        <wsdlsoap:body use="literal"/>
+        <wsp:PolicyReference URI="#AttachmentGalleryServiceHttpBinding_Policy"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="multipleCreate">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="multipleCreateRequest">
+        <wsdlsoap:body use="literal"/>
+        <wsp:PolicyReference URI="#AttachmentGalleryServiceHttpBinding_Policy"/>
+      </wsdl:input>
+      <wsdl:output name="multipleCreateResponse">
+        <wsdlsoap:body use="literal"/>
+        <wsp:PolicyReference URI="#AttachmentGalleryServiceHttpBinding_Policy"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="multipleDeleteAll">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="multipleDeleteAllRequest">
+        <wsdlsoap:body use="literal"/>
+        <wsp:PolicyReference URI="#AttachmentGalleryServiceHttpBinding_Policy"/>
+      </wsdl:input>
+      <wsdl:output name="multipleDeleteAllResponse">
+        <wsdlsoap:body use="literal"/>
+        <wsp:PolicyReference URI="#AttachmentGalleryServiceHttpBinding_Policy"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="AttachmentGalleryService">
+    <wsdl:port name="AttachmentGalleryServiceHttpPort" binding="tns:AttachmentGalleryServiceHttpBinding">
+      <wsdlsoap:address location="http://localhost/services/AttachmentGalleryService"/>
+    </wsdl:port>
+  </wsdl:service>
+  <wsp:Policy wsu:Id="AttachmentGalleryServiceHttpBindingPolicy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:SymmetricBinding>
+          <wsp:Policy/>
+        </sp:SymmetricBinding>
+        <sp:EncryptedSupportingTokens>
+          <wsp:Policy>
+            <sp:UsernameToken sp:IncludeToken="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702/IncludeToken/AlwaysToRecipient">
+              <wsp:Policy>
+                <sp:WssUsernameToken10/>
+              </wsp:Policy>
+            </sp:UsernameToken>
+          </wsp:Policy>
+        </sp:EncryptedSupportingTokens>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="AttachmentGalleryServiceHttpBinding_Policy">
+    <wsp:ExactlyOne>
+      <wsp:All/>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+</wsdl:definitions>
